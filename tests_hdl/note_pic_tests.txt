@@ -1,0 +1,15 @@
+3 testbench strategies have been proposed.
+vhd_classic
+The first one is to use the instruction name (constants) described in the instruction set package
+and affect instructions to an instruction signals. Branching can not be done, but such a test case
+can be used for regression tests on several processors, to test a common set of instructions.
+
+rom_preliminary
+The second one (aborted before the end) is to generate a VHDL file from assembly code. 
+This could be done by modifying gpasm for example in ordre to specify a VHDL output standard.
+The testbench needs to be compiled again when the code changes and it does not seem a very good
+idea.
+
+finally
+A function that reads a .hex files at simulation time and sets a std_logic_vector array is the
+choosen way to test both the device and the embedded software.

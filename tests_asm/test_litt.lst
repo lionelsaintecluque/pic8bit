@@ -1,0 +1,554 @@
+gpasm-0.13.7 beta               tests_asm/test_litt.asm4-15-2011  23:17:25          PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+               00001 ;
+               00002 ; Tests litteral operation
+               00003 ;
+               00004 include tests_asm/12C508A.asm
+               00001         PROCESSOR        P12C508A
+               00002 
+               00003 ; registres
+  00000000     00004 INDF                    equ     0x00
+  00000001     00005 TMR0                    equ     0x01
+  00000002     00006 PCL                     equ     0x02
+  00000003     00007 STATUS                  equ     0x03
+  00000004     00008 FSR                     equ     0x04
+  00000005     00009 OSCCAL                  equ     0x05
+  00000006     00010 GPIO                    equ     0x06
+               00011 
+               00012 ; bits de status pour les tests 
+  00000000     00013 C                       equ     0
+  00000001     00014 DC                      equ     1
+  00000002     00015 Z                       equ     2
+               00005 
+0000           00006         org 0
+               00007         
+  00000000     00008 valeur  set     0
+  000000A5     00009 constante set   0XA5
+               00010 
+0000 00011 loop_litt:
+               00012         while   valeur< 0x100
+               00013         movlw   valeur
+               00014         andlw   constante ^ 0xFF
+               00015         iorlw   constante & (valeur ^ 0xFF)
+               00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+               00017         nop
+               00018         btfss   STATUS, Z
+               00019         goto    fail
+               00020 valeur  set     valeur + 5
+               00021         endw    
+0000 0C00      00013         movlw   valeur
+0001 0E5A      00014         andlw   constante ^ 0xFF
+0002 0DA5      00015         iorlw   constante & (valeur ^ 0xFF)
+0003 0FA5      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0004 0000      00017         nop
+0005 0743      00018         btfss   STATUS, Z
+0006 0B6D      00019         goto    fail
+  00000005     00020 valeur  set     valeur + 5
+0007 0C05      00013         movlw   valeur
+0008 0E5A      00014         andlw   constante ^ 0xFF
+0009 0DA0      00015         iorlw   constante & (valeur ^ 0xFF)
+000A 0FA0      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+000B 0000      00017         nop
+000C 0743      00018         btfss   STATUS, Z
+000D 0B6D      00019         goto    fail
+  0000000A     00020 valeur  set     valeur + 5
+000E 0C0A      00013         movlw   valeur
+000F 0E5A      00014         andlw   constante ^ 0xFF
+gpasm-0.13.7 beta               tests_asm/test_litt.asm4-15-2011  23:17:25          PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+0010 0DA5      00015         iorlw   constante & (valeur ^ 0xFF)
+0011 0FAF      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0012 0000      00017         nop
+0013 0743      00018         btfss   STATUS, Z
+0014 0B6D      00019         goto    fail
+  0000000F     00020 valeur  set     valeur + 5
+0015 0C0F      00013         movlw   valeur
+0016 0E5A      00014         andlw   constante ^ 0xFF
+0017 0DA0      00015         iorlw   constante & (valeur ^ 0xFF)
+0018 0FAA      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0019 0000      00017         nop
+001A 0743      00018         btfss   STATUS, Z
+001B 0B6D      00019         goto    fail
+  00000014     00020 valeur  set     valeur + 5
+001C 0C14      00013         movlw   valeur
+001D 0E5A      00014         andlw   constante ^ 0xFF
+001E 0DA1      00015         iorlw   constante & (valeur ^ 0xFF)
+001F 0FB1      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0020 0000      00017         nop
+0021 0743      00018         btfss   STATUS, Z
+0022 0B6D      00019         goto    fail
+  00000019     00020 valeur  set     valeur + 5
+0023 0C19      00013         movlw   valeur
+0024 0E5A      00014         andlw   constante ^ 0xFF
+0025 0DA4      00015         iorlw   constante & (valeur ^ 0xFF)
+0026 0FBC      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0027 0000      00017         nop
+0028 0743      00018         btfss   STATUS, Z
+0029 0B6D      00019         goto    fail
+  0000001E     00020 valeur  set     valeur + 5
+002A 0C1E      00013         movlw   valeur
+002B 0E5A      00014         andlw   constante ^ 0xFF
+002C 0DA1      00015         iorlw   constante & (valeur ^ 0xFF)
+002D 0FBB      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+002E 0000      00017         nop
+002F 0743      00018         btfss   STATUS, Z
+0030 0B6D      00019         goto    fail
+  00000023     00020 valeur  set     valeur + 5
+0031 0C23      00013         movlw   valeur
+0032 0E5A      00014         andlw   constante ^ 0xFF
+0033 0D84      00015         iorlw   constante & (valeur ^ 0xFF)
+0034 0F86      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0035 0000      00017         nop
+0036 0743      00018         btfss   STATUS, Z
+0037 0B6D      00019         goto    fail
+  00000028     00020 valeur  set     valeur + 5
+0038 0C28      00013         movlw   valeur
+0039 0E5A      00014         andlw   constante ^ 0xFF
+003A 0D85      00015         iorlw   constante & (valeur ^ 0xFF)
+003B 0F8D      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+003C 0000      00017         nop
+003D 0743      00018         btfss   STATUS, Z
+003E 0B6D      00019         goto    fail
+  0000002D     00020 valeur  set     valeur + 5
+gpasm-0.13.7 beta               tests_asm/test_litt.asm4-15-2011  23:17:25          PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+003F 0C2D      00013         movlw   valeur
+0040 0E5A      00014         andlw   constante ^ 0xFF
+0041 0D80      00015         iorlw   constante & (valeur ^ 0xFF)
+0042 0F88      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0043 0000      00017         nop
+0044 0743      00018         btfss   STATUS, Z
+0045 0B6D      00019         goto    fail
+  00000032     00020 valeur  set     valeur + 5
+0046 0C32      00013         movlw   valeur
+0047 0E5A      00014         andlw   constante ^ 0xFF
+0048 0D85      00015         iorlw   constante & (valeur ^ 0xFF)
+0049 0F97      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+004A 0000      00017         nop
+004B 0743      00018         btfss   STATUS, Z
+004C 0B6D      00019         goto    fail
+  00000037     00020 valeur  set     valeur + 5
+004D 0C37      00013         movlw   valeur
+004E 0E5A      00014         andlw   constante ^ 0xFF
+004F 0D80      00015         iorlw   constante & (valeur ^ 0xFF)
+0050 0F92      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0051 0000      00017         nop
+0052 0743      00018         btfss   STATUS, Z
+0053 0B6D      00019         goto    fail
+  0000003C     00020 valeur  set     valeur + 5
+0054 0C3C      00013         movlw   valeur
+0055 0E5A      00014         andlw   constante ^ 0xFF
+0056 0D81      00015         iorlw   constante & (valeur ^ 0xFF)
+0057 0F99      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0058 0000      00017         nop
+0059 0743      00018         btfss   STATUS, Z
+005A 0B6D      00019         goto    fail
+  00000041     00020 valeur  set     valeur + 5
+005B 0C41      00013         movlw   valeur
+005C 0E5A      00014         andlw   constante ^ 0xFF
+005D 0DA4      00015         iorlw   constante & (valeur ^ 0xFF)
+005E 0FE4      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+005F 0000      00017         nop
+0060 0743      00018         btfss   STATUS, Z
+0061 0B6D      00019         goto    fail
+  00000046     00020 valeur  set     valeur + 5
+0062 0C46      00013         movlw   valeur
+0063 0E5A      00014         andlw   constante ^ 0xFF
+0064 0DA1      00015         iorlw   constante & (valeur ^ 0xFF)
+0065 0FE3      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0066 0000      00017         nop
+0067 0743      00018         btfss   STATUS, Z
+0068 0B6D      00019         goto    fail
+  0000004B     00020 valeur  set     valeur + 5
+0069 0C4B      00013         movlw   valeur
+006A 0E5A      00014         andlw   constante ^ 0xFF
+006B 0DA4      00015         iorlw   constante & (valeur ^ 0xFF)
+006C 0FEE      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+006D 0000      00017         nop
+006E 0743      00018         btfss   STATUS, Z
+gpasm-0.13.7 beta               tests_asm/test_litt.asm4-15-2011  23:17:25          PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+006F 0B6D      00019         goto    fail
+  00000050     00020 valeur  set     valeur + 5
+0070 0C50      00013         movlw   valeur
+0071 0E5A      00014         andlw   constante ^ 0xFF
+0072 0DA5      00015         iorlw   constante & (valeur ^ 0xFF)
+0073 0FF5      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0074 0000      00017         nop
+0075 0743      00018         btfss   STATUS, Z
+0076 0B6D      00019         goto    fail
+  00000055     00020 valeur  set     valeur + 5
+0077 0C55      00013         movlw   valeur
+0078 0E5A      00014         andlw   constante ^ 0xFF
+0079 0DA0      00015         iorlw   constante & (valeur ^ 0xFF)
+007A 0FF0      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+007B 0000      00017         nop
+007C 0743      00018         btfss   STATUS, Z
+007D 0B6D      00019         goto    fail
+  0000005A     00020 valeur  set     valeur + 5
+007E 0C5A      00013         movlw   valeur
+007F 0E5A      00014         andlw   constante ^ 0xFF
+0080 0DA5      00015         iorlw   constante & (valeur ^ 0xFF)
+0081 0FFF      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0082 0000      00017         nop
+0083 0743      00018         btfss   STATUS, Z
+0084 0B6D      00019         goto    fail
+  0000005F     00020 valeur  set     valeur + 5
+0085 0C5F      00013         movlw   valeur
+0086 0E5A      00014         andlw   constante ^ 0xFF
+0087 0DA0      00015         iorlw   constante & (valeur ^ 0xFF)
+0088 0FFA      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0089 0000      00017         nop
+008A 0743      00018         btfss   STATUS, Z
+008B 0B6D      00019         goto    fail
+  00000064     00020 valeur  set     valeur + 5
+008C 0C64      00013         movlw   valeur
+008D 0E5A      00014         andlw   constante ^ 0xFF
+008E 0D81      00015         iorlw   constante & (valeur ^ 0xFF)
+008F 0FC1      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0090 0000      00017         nop
+0091 0743      00018         btfss   STATUS, Z
+0092 0B6D      00019         goto    fail
+  00000069     00020 valeur  set     valeur + 5
+0093 0C69      00013         movlw   valeur
+0094 0E5A      00014         andlw   constante ^ 0xFF
+0095 0D84      00015         iorlw   constante & (valeur ^ 0xFF)
+0096 0FCC      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0097 0000      00017         nop
+0098 0743      00018         btfss   STATUS, Z
+0099 0B6D      00019         goto    fail
+  0000006E     00020 valeur  set     valeur + 5
+009A 0C6E      00013         movlw   valeur
+009B 0E5A      00014         andlw   constante ^ 0xFF
+009C 0D81      00015         iorlw   constante & (valeur ^ 0xFF)
+009D 0FCB      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+gpasm-0.13.7 beta               tests_asm/test_litt.asm4-15-2011  23:17:25          PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+009E 0000      00017         nop
+009F 0743      00018         btfss   STATUS, Z
+00A0 0B6D      00019         goto    fail
+  00000073     00020 valeur  set     valeur + 5
+00A1 0C73      00013         movlw   valeur
+00A2 0E5A      00014         andlw   constante ^ 0xFF
+00A3 0D84      00015         iorlw   constante & (valeur ^ 0xFF)
+00A4 0FD6      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+00A5 0000      00017         nop
+00A6 0743      00018         btfss   STATUS, Z
+00A7 0B6D      00019         goto    fail
+  00000078     00020 valeur  set     valeur + 5
+00A8 0C78      00013         movlw   valeur
+00A9 0E5A      00014         andlw   constante ^ 0xFF
+00AA 0D85      00015         iorlw   constante & (valeur ^ 0xFF)
+00AB 0FDD      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+00AC 0000      00017         nop
+00AD 0743      00018         btfss   STATUS, Z
+00AE 0B6D      00019         goto    fail
+  0000007D     00020 valeur  set     valeur + 5
+00AF 0C7D      00013         movlw   valeur
+00B0 0E5A      00014         andlw   constante ^ 0xFF
+00B1 0D80      00015         iorlw   constante & (valeur ^ 0xFF)
+00B2 0FD8      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+00B3 0000      00017         nop
+00B4 0743      00018         btfss   STATUS, Z
+00B5 0B6D      00019         goto    fail
+  00000082     00020 valeur  set     valeur + 5
+00B6 0C82      00013         movlw   valeur
+00B7 0E5A      00014         andlw   constante ^ 0xFF
+00B8 0D25      00015         iorlw   constante & (valeur ^ 0xFF)
+00B9 0F27      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+00BA 0000      00017         nop
+00BB 0743      00018         btfss   STATUS, Z
+00BC 0B6D      00019         goto    fail
+  00000087     00020 valeur  set     valeur + 5
+00BD 0C87      00013         movlw   valeur
+00BE 0E5A      00014         andlw   constante ^ 0xFF
+00BF 0D20      00015         iorlw   constante & (valeur ^ 0xFF)
+00C0 0F22      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+00C1 0000      00017         nop
+00C2 0743      00018         btfss   STATUS, Z
+00C3 0B6D      00019         goto    fail
+  0000008C     00020 valeur  set     valeur + 5
+00C4 0C8C      00013         movlw   valeur
+00C5 0E5A      00014         andlw   constante ^ 0xFF
+00C6 0D21      00015         iorlw   constante & (valeur ^ 0xFF)
+00C7 0F29      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+00C8 0000      00017         nop
+00C9 0743      00018         btfss   STATUS, Z
+00CA 0B6D      00019         goto    fail
+  00000091     00020 valeur  set     valeur + 5
+00CB 0C91      00013         movlw   valeur
+00CC 0E5A      00014         andlw   constante ^ 0xFF
+gpasm-0.13.7 beta               tests_asm/test_litt.asm4-15-2011  23:17:25          PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+00CD 0D24      00015         iorlw   constante & (valeur ^ 0xFF)
+00CE 0F34      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+00CF 0000      00017         nop
+00D0 0743      00018         btfss   STATUS, Z
+00D1 0B6D      00019         goto    fail
+  00000096     00020 valeur  set     valeur + 5
+00D2 0C96      00013         movlw   valeur
+00D3 0E5A      00014         andlw   constante ^ 0xFF
+00D4 0D21      00015         iorlw   constante & (valeur ^ 0xFF)
+00D5 0F33      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+00D6 0000      00017         nop
+00D7 0743      00018         btfss   STATUS, Z
+00D8 0B6D      00019         goto    fail
+  0000009B     00020 valeur  set     valeur + 5
+00D9 0C9B      00013         movlw   valeur
+00DA 0E5A      00014         andlw   constante ^ 0xFF
+00DB 0D24      00015         iorlw   constante & (valeur ^ 0xFF)
+00DC 0F3E      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+00DD 0000      00017         nop
+00DE 0743      00018         btfss   STATUS, Z
+00DF 0B6D      00019         goto    fail
+  000000A0     00020 valeur  set     valeur + 5
+00E0 0CA0      00013         movlw   valeur
+00E1 0E5A      00014         andlw   constante ^ 0xFF
+00E2 0D05      00015         iorlw   constante & (valeur ^ 0xFF)
+00E3 0F05      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+00E4 0000      00017         nop
+00E5 0743      00018         btfss   STATUS, Z
+00E6 0B6D      00019         goto    fail
+  000000A5     00020 valeur  set     valeur + 5
+00E7 0CA5      00013         movlw   valeur
+00E8 0E5A      00014         andlw   constante ^ 0xFF
+00E9 0D00      00015         iorlw   constante & (valeur ^ 0xFF)
+00EA 0F00      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+00EB 0000      00017         nop
+00EC 0743      00018         btfss   STATUS, Z
+00ED 0B6D      00019         goto    fail
+  000000AA     00020 valeur  set     valeur + 5
+00EE 0CAA      00013         movlw   valeur
+00EF 0E5A      00014         andlw   constante ^ 0xFF
+00F0 0D05      00015         iorlw   constante & (valeur ^ 0xFF)
+00F1 0F0F      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+00F2 0000      00017         nop
+00F3 0743      00018         btfss   STATUS, Z
+00F4 0B6D      00019         goto    fail
+  000000AF     00020 valeur  set     valeur + 5
+00F5 0CAF      00013         movlw   valeur
+00F6 0E5A      00014         andlw   constante ^ 0xFF
+00F7 0D00      00015         iorlw   constante & (valeur ^ 0xFF)
+00F8 0F0A      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+00F9 0000      00017         nop
+00FA 0743      00018         btfss   STATUS, Z
+00FB 0B6D      00019         goto    fail
+  000000B4     00020 valeur  set     valeur + 5
+gpasm-0.13.7 beta               tests_asm/test_litt.asm4-15-2011  23:17:25          PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+00FC 0CB4      00013         movlw   valeur
+00FD 0E5A      00014         andlw   constante ^ 0xFF
+00FE 0D01      00015         iorlw   constante & (valeur ^ 0xFF)
+00FF 0F11      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0100 0000      00017         nop
+0101 0743      00018         btfss   STATUS, Z
+0102 0B6D      00019         goto    fail
+  000000B9     00020 valeur  set     valeur + 5
+0103 0CB9      00013         movlw   valeur
+0104 0E5A      00014         andlw   constante ^ 0xFF
+0105 0D04      00015         iorlw   constante & (valeur ^ 0xFF)
+0106 0F1C      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0107 0000      00017         nop
+0108 0743      00018         btfss   STATUS, Z
+0109 0B6D      00019         goto    fail
+  000000BE     00020 valeur  set     valeur + 5
+010A 0CBE      00013         movlw   valeur
+010B 0E5A      00014         andlw   constante ^ 0xFF
+010C 0D01      00015         iorlw   constante & (valeur ^ 0xFF)
+010D 0F1B      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+010E 0000      00017         nop
+010F 0743      00018         btfss   STATUS, Z
+0110 0B6D      00019         goto    fail
+  000000C3     00020 valeur  set     valeur + 5
+0111 0CC3      00013         movlw   valeur
+0112 0E5A      00014         andlw   constante ^ 0xFF
+0113 0D24      00015         iorlw   constante & (valeur ^ 0xFF)
+0114 0F66      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0115 0000      00017         nop
+0116 0743      00018         btfss   STATUS, Z
+0117 0B6D      00019         goto    fail
+  000000C8     00020 valeur  set     valeur + 5
+0118 0CC8      00013         movlw   valeur
+0119 0E5A      00014         andlw   constante ^ 0xFF
+011A 0D25      00015         iorlw   constante & (valeur ^ 0xFF)
+011B 0F6D      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+011C 0000      00017         nop
+011D 0743      00018         btfss   STATUS, Z
+011E 0B6D      00019         goto    fail
+  000000CD     00020 valeur  set     valeur + 5
+011F 0CCD      00013         movlw   valeur
+0120 0E5A      00014         andlw   constante ^ 0xFF
+0121 0D20      00015         iorlw   constante & (valeur ^ 0xFF)
+0122 0F68      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0123 0000      00017         nop
+0124 0743      00018         btfss   STATUS, Z
+0125 0B6D      00019         goto    fail
+  000000D2     00020 valeur  set     valeur + 5
+0126 0CD2      00013         movlw   valeur
+0127 0E5A      00014         andlw   constante ^ 0xFF
+0128 0D25      00015         iorlw   constante & (valeur ^ 0xFF)
+0129 0F77      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+012A 0000      00017         nop
+012B 0743      00018         btfss   STATUS, Z
+gpasm-0.13.7 beta               tests_asm/test_litt.asm4-15-2011  23:17:25          PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+012C 0B6D      00019         goto    fail
+  000000D7     00020 valeur  set     valeur + 5
+012D 0CD7      00013         movlw   valeur
+012E 0E5A      00014         andlw   constante ^ 0xFF
+012F 0D20      00015         iorlw   constante & (valeur ^ 0xFF)
+0130 0F72      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0131 0000      00017         nop
+0132 0743      00018         btfss   STATUS, Z
+0133 0B6D      00019         goto    fail
+  000000DC     00020 valeur  set     valeur + 5
+0134 0CDC      00013         movlw   valeur
+0135 0E5A      00014         andlw   constante ^ 0xFF
+0136 0D21      00015         iorlw   constante & (valeur ^ 0xFF)
+0137 0F79      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0138 0000      00017         nop
+0139 0743      00018         btfss   STATUS, Z
+013A 0B6D      00019         goto    fail
+  000000E1     00020 valeur  set     valeur + 5
+013B 0CE1      00013         movlw   valeur
+013C 0E5A      00014         andlw   constante ^ 0xFF
+013D 0D04      00015         iorlw   constante & (valeur ^ 0xFF)
+013E 0F44      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+013F 0000      00017         nop
+0140 0743      00018         btfss   STATUS, Z
+0141 0B6D      00019         goto    fail
+  000000E6     00020 valeur  set     valeur + 5
+0142 0CE6      00013         movlw   valeur
+0143 0E5A      00014         andlw   constante ^ 0xFF
+0144 0D01      00015         iorlw   constante & (valeur ^ 0xFF)
+0145 0F43      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0146 0000      00017         nop
+0147 0743      00018         btfss   STATUS, Z
+0148 0B6D      00019         goto    fail
+  000000EB     00020 valeur  set     valeur + 5
+0149 0CEB      00013         movlw   valeur
+014A 0E5A      00014         andlw   constante ^ 0xFF
+014B 0D04      00015         iorlw   constante & (valeur ^ 0xFF)
+014C 0F4E      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+014D 0000      00017         nop
+014E 0743      00018         btfss   STATUS, Z
+014F 0B6D      00019         goto    fail
+  000000F0     00020 valeur  set     valeur + 5
+0150 0CF0      00013         movlw   valeur
+0151 0E5A      00014         andlw   constante ^ 0xFF
+0152 0D05      00015         iorlw   constante & (valeur ^ 0xFF)
+0153 0F55      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0154 0000      00017         nop
+0155 0743      00018         btfss   STATUS, Z
+0156 0B6D      00019         goto    fail
+  000000F5     00020 valeur  set     valeur + 5
+0157 0CF5      00013         movlw   valeur
+0158 0E5A      00014         andlw   constante ^ 0xFF
+0159 0D00      00015         iorlw   constante & (valeur ^ 0xFF)
+015A 0F50      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+gpasm-0.13.7 beta               tests_asm/test_litt.asm4-15-2011  23:17:25          PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+ 
+015B 0000      00017         nop
+015C 0743      00018         btfss   STATUS, Z
+015D 0B6D      00019         goto    fail
+  000000FA     00020 valeur  set     valeur + 5
+015E 0CFA      00013         movlw   valeur
+015F 0E5A      00014         andlw   constante ^ 0xFF
+0160 0D05      00015         iorlw   constante & (valeur ^ 0xFF)
+0161 0F5F      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0162 0000      00017         nop
+0163 0743      00018         btfss   STATUS, Z
+0164 0B6D      00019         goto    fail
+  000000FF     00020 valeur  set     valeur + 5
+0165 0CFF      00013         movlw   valeur
+0166 0E5A      00014         andlw   constante ^ 0xFF
+0167 0D00      00015         iorlw   constante & (valeur ^ 0xFF)
+0168 0F5A      00016         xorlw   (constante & (valeur ^0xFF)) | ((constante ^ 0xFF) & valeur)
+0169 0000      00017         nop
+016A 0743      00018         btfss   STATUS, Z
+016B 0B6D      00019         goto    fail
+  00000104     00020 valeur  set     valeur + 5
+               00022 
+016C 00023 end_litt:
+016C 0B6C      00024         goto    end_litt
+               00025 
+016D 0B6D      00026 fail:   goto fail
+               00027 
+gpasm-0.13.7 beta               tests_asm/test_litt.asm4-15-2011  23:17:25          PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+C                                 00000000
+DC                                00000001
+FSR                               00000004
+GPIO                              00000006
+INDF                              00000000
+OSCCAL                            00000005
+PCL                               00000002
+STATUS                            00000003
+TMR0                              00000001
+Z                                 00000002
+__12C508A                         00000001
+constante                         000000A5
+end_litt                          0000016C
+fail                              0000016D
+loop_litt                         00000000
+valeur                            00000104
+
+
+MEMORY USAGE MAP ('X' = Used,  '-' = Unused)
+
+00000000 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00000040 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00000080 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+000000c0 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00000100 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX
+00000140 : XXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXX XXXXXXXXXXXXXX-- ----------------
+
+All other memory blocks unused.
+
+Program Memory Words Used: 366
+
+
+Errors   :       0
+Warnings :       0 reported,       0 suppressed
+Messages :       0 reported,       0 suppressed
+
